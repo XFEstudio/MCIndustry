@@ -1,0 +1,19 @@
+{
+	"type": "ItemSource",
+	"name": "磁生转化器",
+	"description": "",
+    "health":5000,
+	"size":3,
+	consumes: {
+       }
+	"requirements": [
+	磁铜/20000
+	磁涌合金/10000
+	],
+	"configurable":true,
+	"posConfig":true,
+	"category": "distribution",
+	"buildVisibility":"shown",
+	"outlineColor":"6495ED",
+	"research":磁铜四向通道
+}

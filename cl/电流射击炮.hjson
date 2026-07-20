@@ -1,0 +1,42 @@
+{
+   type:PowerTurret
+   name:电流射击炮
+   description:用电发射能量弹
+   health:390
+   range:180
+   reloadTime:30
+   shots:3
+   restitution:1
+   inaccuracy:0
+   size:1
+   canHeal:true
+   retreatPercent:1
+   requirements:[copper/25
+   lead/50
+   silicon/10
+   graphite/30]
+   category:turret
+   research:双管炮-强化
+   powerUse:2.2
+   burstSpacing:2
+   shootType:{
+           type: LaserBoltBulletType
+           damage: 15
+           speed:4
+           pierce:false
+           lifetime:60
+           width:3
+           length:3
+           height:4
+           hitSize:3
+           drawSize:40
+           drag:0
+           hitTiles:true
+           collidesTiles:true
+           collidesTeam:false
+           collidesAir:true
+           collides:true
+           keepVelocity:true
+           fragBullets:6
+            }
+}

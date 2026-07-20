@@ -1,0 +1,31 @@
+{
+    name:磁轨冲击钻头
+    description:利用磁轨，发射巨量能量熔融矿脉，内部自带小型仓库
+    type:Drill
+    tier:100
+    health:1500
+    drillTime:20
+    alwaysUnlocked: true
+    drawMineItem:false
+    itemCapacity:500
+    size:4
+    rotateSpeed:10
+    warmupSpeed:0.015
+    drawRim:true
+    research:磁铜工业
+    heatColor:00fa9a
+    consumes:{
+    power:5
+    liquid:{
+    liquid: water
+    amount: 0.01
+    optional: true
+    booster: true
+        }
+      }
+      liquidBoostIntensity:5.0
+    requirements:[copper/1000
+    磁铜/300
+    ]
+    category:production
+}

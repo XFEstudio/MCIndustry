@@ -1,0 +1,63 @@
+{
+   type:PowerTurret
+   name:磁裂
+   description:发射高能穿刺磁球
+   health:1000
+   size:1
+   shots:1
+   inaccuracy:0
+   recoil:1
+   restitution:1
+   range:200
+   reload:30
+   requirements:[copper/50
+   磁铜/10
+   ]
+   category:turret
+   research:磁铜工业
+   spread:8
+   shootSound:laser
+   shootType:{
+      type: "ArtilleryBulletType",
+                    "damage": 12,
+                    "sideAngle": 5,
+                    "sideWidth": 10,
+                    "sideLength": 10,
+                    "speed":3,
+                    "lifetime":100,
+                    drawSize:20
+                    hitTiles:true
+           collidesTiles:true
+           collidesTeam:false
+           collidesAir:true
+           collides:true
+		"fragVelocityMin":4
+		"fragVelocityMax":6
+                    hitSize:30
+                    pierce:true
+                    "width": 15,
+                    "length": 6,
+           "lightningDamage":5,
+           "lightningColor": 6495EDFF,
+           "lightning":4,
+           "lightningLength":4,
+           "backColor": "4169E1",
+            "frontColor": "6495ED",
+            "lightColor": 4169E1FF,
+            "fragBullets":3,
+           "fragBullet":{  
+                   "type": "LightningBulletType",
+                    "damage": 8,
+                    "sideAngle": 15,
+                    "sideWidth": 0.5,
+                    "sideLength": 15,
+                    "lightningColor": 6495EDFF,
+                    "width": 15,
+                    "height": 11,
+                    "lightningLength": 8,
+                }
+   }
+	consumes: {
+	   power: 0.5
+	}
+}

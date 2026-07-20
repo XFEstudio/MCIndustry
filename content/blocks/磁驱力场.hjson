@@ -1,0 +1,28 @@
+
+name:磁驱力场
+description:利用辐散的电离场加速电力设施
+type: OverdriveProjector
+health:200
+color:#7B68EE
+phase:#6495ED
+range:150
+reload:40
+speedBoost:2
+size:2
+hasItems: true
+research:磁铜工业
+consumes: {
+power:1
+items:{
+items:[
+				{
+item: 磁铜, amount: 1
+				}
+		]
+		booster:true
+optional:true
+		}
+}
+requirements:[copper/100
+磁铜/50]
+category: effect

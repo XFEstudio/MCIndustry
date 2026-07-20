@@ -1,0 +1,15 @@
+{
+name:磁铜四向通道
+description: 利用铜磁传输，在几乎瞬间将物品输送至目的地，四面输送
+type: Router
+health:50
+category: distribution
+consumesPower:false
+alwaysUnlocked: true
+canoverdrive:false
+itemCapacity:0
+requirements:[copper/5
+磁铜/1
+]
+research: 磁铜工业
+}

@@ -1,0 +1,25 @@
+{
+	 type:PowerGenerator
+	 name:铜相生电机
+	 description:输入铜以少量发电
+	 size:2
+	 health:500
+	 hasItems:true
+	 hasLiquids:false
+     powerProduction:5
+     minItemEfficiency:1
+     itemDuration:75
+     alwaysUnlocked: true
+     consumes:{
+       items:{
+         items:[
+          copper/1
+           ]
+         }
+       }
+	 requirements:[copper/50
+]
+	 optional:true
+	 category:power
+	 research:磁铜工业
+}

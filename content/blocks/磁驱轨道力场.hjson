@@ -1,0 +1,30 @@
+
+name:磁驱轨道力场
+description:利用辐散的电离场加速电力设施
+type: OverdriveProjector
+health:200
+color:#7B68EE
+phase:#6495ED
+range:600
+reload:50
+speedBoost:11
+size:4
+hasItems: true
+research:磁铜工业
+consumes: {
+power:10
+items:{
+items:[
+				{
+item: 磁涌合金, amount: 1
+				}
+		]
+		booster:true
+optional:true
+		}
+}
+requirements:[copper/2000
+磁铜/1200
+磁涌合金/200
+]
+category: effect

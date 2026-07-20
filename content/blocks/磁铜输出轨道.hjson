@@ -1,0 +1,17 @@
+{
+      "health": 60,
+      "size":1,
+      "speed": 0.0,
+      "solid": "true",
+      "update": "true",
+      "hasItems": "true",
+      "type":"Unloader",
+      alwaysUnlocked: true
+      "confugurable": "true",
+      "description": "利用磁轨从容器中获取物品",
+      "name":"磁铜输出轨道",
+      "requirements": [copper/80
+      磁铜/10
+	],
+    research:磁铜四向通道
+}

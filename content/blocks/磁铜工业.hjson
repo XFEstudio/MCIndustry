@@ -1,0 +1,9 @@
+type:Wall
+name:磁铜工业
+health:0
+description:"磁铜工业的科技树"
+size:1
+"buildVisibility": "sandboxOnly"
+alwaysUnlocked: true
+research:core-shard
+requirements:[]

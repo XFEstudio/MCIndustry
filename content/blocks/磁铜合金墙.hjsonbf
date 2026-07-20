@@ -1,0 +1,20 @@
+{
+name:磁铜合金墙
+description:磁铜合金墙，自动生成磁铜力场投影
+type:ForceProjector
+health:5000
+size:2
+hasItems:true
+research:磁铜工业
+consumesPower:false
+radius:50
+shieldHealth: 2400
+phaseShieldBoost: 1600
+cooldownNormal: 0.95
+cooldownBrokenBase: 1.15
+breakage:1200
+basePowerDraw:0
+requirements:[copper/150
+磁铜/50]
+category: defense
+}

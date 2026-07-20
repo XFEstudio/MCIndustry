@@ -1,0 +1,16 @@
+{
+    "description": "使用高能磁铜制成的辐散塔，通过内部的高能磁铜激发大范围电磁电离辐射场来远距离输电",
+    "requirements": [copper/300
+    磁铜/80
+    磁涌合金/150
+    ],
+    "laserRange": 60,
+    "maxNodes": 90,
+    alwaysUnlocked: true
+    "size": 3,
+    "type": "PowerNode",
+    "name": "电离辐散塔",
+    research: 磁铜相生电机
+    "category": "power"
+}
+

@@ -1,0 +1,29 @@
+
+name: 巨浪电离合成厂
+description: 输入磁铜和铜，利用电离能融合成巨浪合金
+type: GenericCrafter
+health:600
+itemCapacity:10
+size:3
+hasItems: true
+alwaysUnlocked: true
+outputItem: surge-alloy/2
+craftTime:20
+research:磁铜聚合工厂
+consumes: {
+power:3
+items: {
+			 items: [
+			 copper/6
+磁铜/2
+			]
+  }
+ }
+requirements:[copper/350
+磁铜/100
+titanium/50
+]
+craftEffect: smeltsmoke
+category: crafting
+idleSound: respawning
+idleSoundVolume: 0.5

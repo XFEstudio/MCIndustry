@@ -1,0 +1,21 @@
+{
+name:硅提取厂
+description:从钻取的石头中利用高能电离场提取和精炼硅
+type:GenericCrafter
+health:350
+itemCapacity:50
+size:2
+hasItems:true
+outputItem:silicon/1
+craftTime:20
+research:煤生成器
+consumes: {
+power:3
+ }
+requirements:[copper/250
+磁铜/100]
+craftEffect: lightningShoot
+category:crafting
+idleSound:respawning
+idleSoundVolume:0.5
+}

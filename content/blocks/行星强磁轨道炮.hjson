@@ -1,0 +1,86 @@
+{
+research:duo
+   type:CoolTurret
+   type:PowerTurret
+   name:行星强磁轨道炮
+   description:行星级穿刺轨道炮，充能时间长，对路径上的主要目标造成毁灭性伤害，对周围单位产生溅射连锁伤害
+   health:8000
+   range:2100
+   reload:800
+    shoot: {
+        "type": "ShootSpread",
+        "shots": 5,
+        "spread": 5
+    },
+   restitution:1
+   shake:20
+   "restitution": 0.002,
+	"recoil": 20,
+	"recoilAmount": 10,
+   inaccuracy:0
+   size:8
+minRange:100
+    shootSound :"laser"
+    shootEffect:"lancerLaserShoot"
+    coolantUsage:1
+    coolantMultiplier:1
+    canOverdrive:true
+    cooldown:0.01
+    "rotateSpeed": 0.2,
+    firingMoveFract:1
+    smokeEffect: "lightningShoot"
+    heatColor:DC143C
+    research:强磁轨道炮
+    alwaysUnlocked: true
+    alternate:false
+    requirements:[copper/4000
+    磁铜/2000
+    磁涌合金/400
+    titanium/1200
+   ]
+   category:turret
+   shootType:{
+   type: meltdownLaser
+           damage: 12000
+           speed:6
+           pierce:true
+           lifetime:400
+           width:60
+           length:30
+           height:550
+           hitSize:80
+hitShake:5
+	"knockBack": 20,
+           "lightColor": 4169E1FF,
+           "incendChance": 100,
+            "incendSpread": 100,
+            "incendAmount": 200,
+            "despawnEffect": "smokeCloud",
+            "smokeEffect": "none",
+            "collidesTeam": "true",
+            "backColor": "4169E1",
+            "frontColor": "6495ED",
+           drawSize:60
+           drag:0
+           hitTiles:true
+           collidesTiles:true
+           collidesTeam:false
+           collidesAir:true
+           collides:true
+           keepVelocity:true
+           "lightningDamage":3000,
+           "lightningColor": 6495EDFF,
+           "lightning":60,
+           "lightningLength":80,
+        "chargeEffect": {
+            "type": "MultiEffect",
+            "effects": [
+                "lancerLaserCharge",
+                "none"
+            ]
+        },
+           },
+	consumes: {
+	   power: 1000
+	}
+}

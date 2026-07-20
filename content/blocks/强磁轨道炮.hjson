@@ -1,0 +1,82 @@
+{
+   type:CoolTurret
+   type:ItemTurret
+   type:PowerTurret
+   name:强磁轨道炮
+   description:穿刺轨道炮，充能时间长，对路径上的主要目标造成巨量伤害，对周围单位产生溅射连锁伤害
+   health:6000
+   range:1200
+   alwaysUnlocked: true
+   reload:700
+   shots:1
+   "restitution": 0.01,
+	"recoil": 10,
+	"recoilAmount": 5,
+   shake:8
+   inaccuracy:0
+   size:4
+minRange:100
+    shootSound :"laser"
+    shootEffect:"lancerLaserShoot"
+    coolantUsage:1
+    coolantMultiplier:1
+    canOverdrive:true
+    cooldown:0.01
+    "rotateSpeed": 0.5,
+    firingMoveFract:1
+    smokeEffect: "lightningShoot"
+    heatColor:DC143C
+    research: 磁铜工业
+    alternate:false
+    requirements:[copper/2000
+    磁铜/600
+    titanium/300
+   ]
+   category:turret
+   shootType:{
+   type: meltdownLaser
+           damage: 4000
+           speed:5
+           pierce:true
+           lifetime:200
+           width:30
+           length:20
+           height:400
+           recoil:5
+           restitution:0.01,
+           hitSize:50
+           hitShake:4
+           knockback:0.5
+           "lightColor": 4169E1FF,
+           "incendChance": 100,
+            "incendSpread": 100,
+            "incendAmount": 200,
+            "despawnEffect": "smokeCloud",
+            "smokeEffect": "none",
+            "collidesTeam": "true",
+            "backColor": "4169E1",
+            "frontColor": "6495ED",
+           drawSize:60
+           drag:0
+           hitTiles:true
+           collidesTiles:true
+           collidesTeam:false
+           collidesAir:true
+           collides:true
+           keepVelocity:true
+           "lightningDamage":1000,
+           "lightningColor": 6495EDFF,
+           "lightning":20,
+           "lightningLength":30,
+        "chargeEffect": {
+            "type": "MultiEffect",
+            "effects": [
+                "lancerLaserCharge",
+                "none"
+            ]
+        },
+           },
+	consumes: {
+	   power: 200
+	}
+}

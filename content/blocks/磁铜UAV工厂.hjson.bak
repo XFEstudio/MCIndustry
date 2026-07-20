@@ -1,0 +1,37 @@
+
+name:磁铜UAV工厂
+description:磁铜无人机基础工厂
+type:UnitFactory
+health:320
+size:1
+hasItems:true
+research:air-factory
+consumes:{
+power:1
+}
+"plans":[
+	    
+	    { "unit": "攻击型UAV", "time": 100, "requirements": [ 
+            { "item": "磁铜", "amount": 3}
+			]
+}
+
+{ "unit": "辅助型UAV", "time": 150, "requirements": [ 
+            { "item": "磁铜", "amount": 5}
+			]
+}
+
+{ "unit": "磁爆", "time": 50, "requirements": [ 
+            { "item": "磁铜", "amount": 1}
+			]
+}
+
+{ "unit": "测试", "time": 1000, "requirements": [ 
+            { "item": "磁铜", "amount": 1}
+			]
+}
+
+	]
+requirements:[copper/100
+磁铜/50]
+category:units

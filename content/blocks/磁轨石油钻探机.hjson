@@ -1,0 +1,24 @@
+{
+    "type": "SolidPump",
+    "name": "磁轨石油钻探机",
+    "description": "以巨量的能量轰击地脉，通过裂缝萃取石油",
+    "size":2,
+    "health":240
+   	"liquidCapacity":30,
+    "hasLiquids": true,
+    "alwaysUnlocked": true,
+    "pumpAmount":0.1
+    "hasPower":true,
+    rotateSpeed:6
+    "result":"oil",
+	"updateEffect":"smeltsmoke",
+	"consumes":{
+		"power": 0.8
+	},
+    "drillTime": 18,
+    requirements:[copper/150
+    磁铜/20
+   ]
+	"category": "production",
+	research: 磁轨冲击钻头
+}

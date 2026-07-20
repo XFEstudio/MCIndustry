@@ -1,0 +1,15 @@
+{
+    "category": "distribution",
+    "type": "ItemBridge",
+    "requirements": [
+        { "amount": 10, "item": "铅板" },
+        { "amount": 5, "item": "塑料" },
+        { "amount": 10, "item": "silicon" }
+    ],
+    "range": 6,
+    "canOverdrive": false,
+    "hasPower": false,
+    "consumes": {},
+    "research": "高分子传送带",
+    "description": "最大可跨越5格左右的实体方块来传输物品。"
+}

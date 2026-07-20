@@ -1,0 +1,13 @@
+{
+"name": "磁涌合金",
+"description": "由磁铜与巨浪合金加聚而来 具有极大的电极性与能量",
+"type": "material",
+"alwaysUnlocked":true,
+"color": "#6a0000",
+"explosiveness": 0,
+"hardness": 10,
+"radioactivity": 0,
+"flammability": 0,
+"charge": 5,
+"cost": 1
+}

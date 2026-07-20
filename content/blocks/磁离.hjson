@@ -1,0 +1,48 @@
+{
+   type:PowerTurret
+   name:磁离
+   description:射出高能磁能，对路径上被击中的敌人造成范围伤害
+   health:2000
+   size:2
+   shots:1
+   inaccuracy:0
+   recoil:1
+   restitution:1
+   range:400
+   reload:40
+   requirements:[copper/300
+   磁铜/100
+   ]
+   category:turret
+   research:磁铜工业
+   spread:8
+   shootSound:shotgun
+   shootType:{
+      type: "LaserBulletType",
+                    "damage": 80,
+                    "sideAngle": 60,
+                    "sideWidth": 20,
+                    "sideLength": 30,
+                    drawSize:30
+                    hitTiles:true
+           collidesTiles:true
+           collidesTeam:false
+           collidesAir:true
+           collides:true
+                    hitSize:30
+                    pierce:true
+                    "width": 30,
+                    "length": 450,
+                    "shootEffect": "shockwave"
+                    "lightningDamage":20,
+           "lightningColor": 6495EDFF,
+           "lightning":3,
+           "lightningLength":5,
+           "backColor": "4169E1",
+            "frontColor": "6495ED",
+            "lightColor": 4169E1FF,
+                }
+	consumes: {
+	   power: 5
+	}
+}

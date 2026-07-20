@@ -1,0 +1,43 @@
+{
+      type:CoolTurret
+      type:LaserTurret
+      name:磁融
+      description:强力的电磁光束熔融敌方单位
+      health:2500
+      range:200
+      reload:100
+      recoil:1
+      shots:1
+      size:3
+      restitution:4
+      firingMoveFract:1
+      shootDuration:500
+      shootType:{
+      type: ContinuousLaserBulletType,
+                    lifetime: 200,
+                    drawSize: 100,
+                    damage: 80,
+                    length: 200,
+                    width:15,
+            despawnEffect: smokeCloud,
+            smokeEffect: none,
+            collidesTeam": true,
+            backColor: 4169E1,
+            trailColor:EA8878FF,
+            lightColor: 4169E1FF,
+            frontColor: 6495ED,
+           },
+      requirements:[copper/500
+      磁铜/300
+      titanium/300
+      ]
+      category:turret
+      research:磁铜工业
+      consumes: {
+            power: 10,
+		coolant: {
+			amount: 0.2,
+			optional: true
+		}
+	}
+}

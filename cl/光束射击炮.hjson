@@ -1,0 +1,44 @@
+{
+   type:PowerTurret
+   name:光束射击炮
+   description:发射高速追踪修复光束弹
+   health:1550
+   range:265
+   reloadTime:13
+   shots:2
+   shotWidth:5
+   restitution:1
+   inaccuracy:0
+   size:2
+   alternate:true
+   requirements:[copper/85
+   lead/120
+   silicon/90
+   graphite/45
+   ]
+   category:turret
+   research:电流射击炮
+   powerUse:4.6
+   shootType:{
+   type: LaserBoltBulletType
+           damage: 21
+           speed:11
+           pierce:false
+           lifetime:27
+           width:3
+           length:3
+           height:4
+           hitSize:3
+           drawSize:40
+           drag:0
+           hitTiles:true
+           collidesTiles:true
+           collidesTeam:false
+           collidesAir:true
+           collides:true
+           keepVelocity:true
+           homingPower:1.1
+           healPercent: 2
+           collidesTeam: true
+           },
+}

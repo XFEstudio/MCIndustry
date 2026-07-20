@@ -1,0 +1,13 @@
+{
+"name": "磁铜",
+"description": "高能带电物质，用作磁轨工业材料",
+"type": "material",
+"alwaysUnlocked":true,
+"color": "#6a5acd",
+"explosiveness": 0,
+"hardness": 5,
+"radioactivity": 0,
+"flammability": 0,
+"charge": 5,
+"cost": 0.5
+}

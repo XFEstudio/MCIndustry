@@ -1,0 +1,17 @@
+{
+    "type": "MassDriver",
+    "name": "磁驱",
+    "description": "利用磁驱产生的巨大能量驱动这个小型的物质驱动器",
+    "requirements": [
+        copper/250
+        磁驱/50
+    ],
+    "size": 1,
+    "itemCapacity": 25,
+    "range": 300,
+    "speed": 2,
+    "consumes": {
+        "power": 1
+    },
+    "research": "磁铜工业"
+}

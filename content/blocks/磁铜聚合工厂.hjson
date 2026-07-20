@@ -1,0 +1,28 @@
+{
+name: 磁铜聚合工厂
+description: 输入铜，经过聚合后高能电离极化磁矩，使其附带高能电离磁场
+type: GenericCrafter
+health:250
+itemCapacity:10
+size:2
+hasItems: true
+outputItem: 磁铜/1
+craftTime:30
+research:磁铜工业
+alwaysUnlocked: true
+consumes: {
+power:1.5
+items: {
+			 items: [
+copper/5
+			]
+  }
+ }
+requirements:[copper/200
+titanium/60
+]
+craftEffect: smeltsmoke
+category: crafting
+idleSound: respawning
+idleSoundVolume: 0.5
+}

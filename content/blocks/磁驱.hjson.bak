@@ -1,0 +1,35 @@
+{
+    "type": "MassDriver",
+    "name": "小型质量驱动器",
+    "description": "利用板制造出了更小的质量驱动器，使用方法与普通的一样。",
+    "requirements": [
+        { "item": "铜板", "amount": 30 },
+        { "item": "铅板", "amount": 30 },
+        { "item": "钛板", "amount": 30 },
+        { "item": "塑料", "amount": 30 },
+        { "item": "silicon", "amount": 60 }
+    ],
+    "size": 1,
+    "itemCapacity": 25,
+    "range": 150,
+    "speed": 1,
+    "consumes": {
+        "power": 0.25
+    },
+    "research": "高分子传送带桥"
+}
+
+
+
+
+/*
+
+        massDriver = new MassDriver("mass-driver"){{
+            requirements(Category.distribution, with(Items.titanium, 125, Items.silicon, 75, Items.lead, 125, Items.thorium, 50));
+            size = 3;
+            itemCapacity = 120;
+            reloadTime = 200f;
+            range = 440f;
+            consumes.power(1.75f);
+        }};
+*/

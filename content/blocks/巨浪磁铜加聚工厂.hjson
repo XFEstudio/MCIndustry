@@ -1,0 +1,29 @@
+
+name: 巨浪磁铜加聚工厂
+description: 输入磁铜和巨浪合金，经过辐散聚合后，产生磁涌合金
+type: GenericCrafter
+health:800
+itemCapacity:10
+size:3
+hasItems: true
+alwaysUnlocked: true
+outputItem: 磁涌合金/1
+craftTime:20
+research:磁铜聚合工厂
+consumes: {
+power:5
+items: {
+			 items: [
+磁铜/5
+surge-alloy/1
+			]
+  }
+ }
+requirements:[copper/400
+磁铜/150
+titanium/100
+]
+craftEffect: smeltsmoke
+category: crafting
+idleSound: respawning
+idleSoundVolume: 0.5
