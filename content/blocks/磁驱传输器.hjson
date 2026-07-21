@@ -7,8 +7,9 @@
         磁铜/20
     ],
     "range": 300,
-    "transportTime": 0.1,
-    "itemCapacity": 30,
+    // 每 1 tick 传输一组；每组大小由脚本设为 10。
+    "transportTime": 1,
+    "itemCapacity": 100,
     "canOverdrive": false,
     "hasPower": true,
     "consumes": {
