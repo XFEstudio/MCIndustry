@@ -1,5 +1,5 @@
 {
-	 type:PowerGenerator
+	 type:ConsumeGenerator
 	 name:磁铜相生电机
 	 description:输入高能的磁铜以产生大量电力
 	 size:2
@@ -7,7 +7,6 @@
 	 hasItems:true
 	 hasLiquids:false
      powerProduction:25
-     minItemEfficiency:1
      alwaysUnlocked: true
      itemDuration:150
      consumes:{
@@ -20,7 +19,6 @@
 	 requirements:[copper/300
 磁铜/50
 ]
-	 optional:true
 	 category:power
 	 research:铜相生电机
 }
