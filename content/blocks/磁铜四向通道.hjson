@@ -5,11 +5,11 @@ type: Router
 health:50
 category: distribution
 consumesPower:false
-alwaysUnlocked: true
 canOverdrive:false
 itemCapacity:0
 requirements:[copper/5
 磁铜/1
 ]
 research: 磁铜工业
+researchCost:[磁铜/5]
 }

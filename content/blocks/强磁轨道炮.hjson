@@ -6,7 +6,6 @@
    description:穿刺轨道炮，充能时间长，对路径上的主要目标造成巨量伤害，对周围单位产生溅射连锁伤害
    health:6000
    range:1200
-   alwaysUnlocked: true
    reload:700
    shots:1
    "restitution": 0.01,
@@ -26,7 +25,9 @@ minRange:100
     firingMoveFract:1
     smokeEffect: "lightningShoot"
     heatColor:DC143C
-    research: 磁铜工业
+    research: 磁裂
+    researchCost:[copper/10000
+    磁铜/5000]
     alternate:false
     requirements:[copper/2000
     磁铜/600

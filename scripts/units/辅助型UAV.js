@@ -1,7 +1,5 @@
 
-var 辅助型UAV = extendContent(UnitType, '辅助型UAV', {});
-辅助型UAV.defaultController = prov(() => extend(BuilderAI, {}));
+var 辅助型UAV = Vars.content.getByName(ContentType.unit, modName + "-辅助型UAV");
+辅助型UAV.aiController = prov(() => new BuilderAI());
 辅助型UAV.drawShields = false;
 辅助型UAV.abilities.add( new RepairFieldAbility(20, 60, 80));
-辅助型UAV.constructor = prov(() => extend(UnitTypes.poly.constructor.get().class, {}));
-

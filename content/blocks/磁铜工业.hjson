@@ -4,6 +4,6 @@ health:0
 description:"磁铜工业的科技树"
 size:1
 "buildVisibility": "sandboxOnly"
-alwaysUnlocked: true
 research:core-shard
 requirements:[]
+researchCost:[copper/100]

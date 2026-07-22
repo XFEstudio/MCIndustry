@@ -1,5 +1,4 @@
 {
-research:duo
    type:CoolTurret
    type:PowerTurret
    name:行星强磁轨道炮
@@ -31,7 +30,9 @@ minRange:100
     smokeEffect: "lightningShoot"
     heatColor:DC143C
     research:强磁轨道炮
-    alwaysUnlocked: true
+    researchCost:[copper/30000
+    磁铜/10000
+    磁涌合金/5000]
     alternate:false
     requirements:[copper/4000
     磁铜/2000
