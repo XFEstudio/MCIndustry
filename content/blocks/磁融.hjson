@@ -32,7 +32,7 @@
       titanium/300
       ]
       category:turret
-      research:磁铜工业
+      research:磁铜
       consumes: {
             power: 10,
 		coolant: {

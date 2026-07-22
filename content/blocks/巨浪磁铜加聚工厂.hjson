@@ -8,7 +8,10 @@ size:3
 hasItems: true
 outputItem: 磁涌合金/1
 craftTime:20
-research:磁铜聚合工厂
+research:{
+parent:磁铜
+objectives:[磁铜聚合工厂]
+}
 researchCost:[copper/5000
 磁铜/3000
 surge-alloy/1000]

@@ -11,7 +11,7 @@
     rotateSpeed:10
     warmupSpeed:0.015
     drawRim:true
-    research:磁铜工业
+    research:磁铜
     researchCost:[copper/500
     磁铜/50]
     heatColor:00fa9a

@@ -9,7 +9,10 @@
     "size": 3,
     "type": "PowerNode",
     "name": "电离辐散塔",
-    research: 磁铜相生电机
+    research:{
+    parent:磁涌合金
+    objectives:[磁铜相生电机]
+    }
     researchCost:[copper/5000
     磁铜/3000
     磁涌合金/500]
