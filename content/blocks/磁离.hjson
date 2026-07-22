@@ -14,7 +14,7 @@
    磁铜/100
    ]
    category:turret
-   research:磁铜工业
+   research:磁裂
    spread:8
    shootSound:shotgun
    shootType:{

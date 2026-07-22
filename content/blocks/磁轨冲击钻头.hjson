@@ -5,7 +5,6 @@
     tier:100
     health:1500
     drillTime:20
-    alwaysUnlocked: true
     drawMineItem:false
     itemCapacity:500
     size:4
@@ -13,6 +12,8 @@
     warmupSpeed:0.015
     drawRim:true
     research:磁铜工业
+    researchCost:[copper/500
+    磁铜/50]
     heatColor:00fa9a
     consumes:{
     power:5

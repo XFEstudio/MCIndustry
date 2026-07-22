@@ -6,10 +6,12 @@ health:800
 itemCapacity:10
 size:3
 hasItems: true
-alwaysUnlocked: true
 outputItem: 磁涌合金/1
 craftTime:20
 research:磁铜聚合工厂
+researchCost:[copper/5000
+磁铜/3000
+surge-alloy/1000]
 consumes: {
 power:5
 items: {

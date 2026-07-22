@@ -6,7 +6,6 @@
       "update": "true",
       "hasItems": "true",
       "type":"Unloader",
-      alwaysUnlocked: true
       "confugurable": "true",
       "description": "利用磁轨从容器中获取物品",
       "name":"磁铜输出轨道",
@@ -14,4 +13,6 @@
       磁铜/10
 	],
     research:磁铜四向通道
+    researchCost:[copper/2000
+    磁铜/800]
 }

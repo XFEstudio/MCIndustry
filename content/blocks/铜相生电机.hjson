@@ -8,7 +8,6 @@
 	 hasLiquids:false
      powerProduction:5
      itemDuration:75
-     alwaysUnlocked: true
      consumes:{
        items:{
          items:[
@@ -20,4 +19,5 @@
 ]
 	 category:power
 	 research:磁铜工业
+	 researchCost:[copper/100]
 }

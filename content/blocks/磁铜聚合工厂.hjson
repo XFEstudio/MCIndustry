@@ -9,7 +9,7 @@ hasItems: true
 outputItem: 磁铜/1
 craftTime:30
 research:磁铜工业
-alwaysUnlocked: true
+researchCost:[copper/300]
 consumes: {
 power:1.5
 items: {

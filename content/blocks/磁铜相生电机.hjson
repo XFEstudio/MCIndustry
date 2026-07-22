@@ -7,7 +7,6 @@
 	 hasItems:true
 	 hasLiquids:false
      powerProduction:25
-     alwaysUnlocked: true
      itemDuration:150
      consumes:{
        items:{
@@ -21,4 +20,5 @@
 ]
 	 category:power
 	 research:铜相生电机
+	 researchCost:[磁铜/500]
 }
