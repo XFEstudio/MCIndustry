@@ -1,0 +1,29 @@
+{
+    name: 磁铜传送带
+    description: 将物品压缩为二十五件一组，利用高速磁场进行运输。满载时可运输每秒500件物品。
+    type: StackConveyor
+    category: distribution
+    health: 220
+    itemCapacity: 25
+    // 每3 tick传输25件：25 × 60 ÷ 3 = 500件/秒。
+    // 略高于1/3可避免浮点误差使冷却多等待1 tick。
+    speed: 0.333334
+    recharge: 1
+    outputRouter: true
+    canOverdrive: false
+    hasPower: true
+    consumes: {
+        power: 0.2
+    }
+    glowColor: "7f5cff"
+    glowAlpha: 0.9
+    requirements: [
+        copper/10
+        磁铜/5
+    ]
+    research: 磁铜
+    researchCost: [
+        copper/1000
+        磁铜/500
+    ]
+}
