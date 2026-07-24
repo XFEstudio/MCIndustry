@@ -5,7 +5,10 @@ type:UnitFactory
 health:320
 size:1
 hasItems:true
-research:air-factory
+research:{
+parent:磁铜
+objectives:[air-factory]
+}
 consumes:{
 power:1
 }

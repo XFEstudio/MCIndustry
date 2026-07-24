@@ -10,6 +10,6 @@ itemCapacity:0
 requirements:[copper/5
 磁铜/1
 ]
-research: 磁铜工业
+research: 磁铜
 researchCost:[磁铜/5]
 }

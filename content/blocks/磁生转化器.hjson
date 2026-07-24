@@ -15,5 +15,8 @@
 	"category": "distribution",
 	"buildVisibility":"shown",
 	"outlineColor":"6495ED",
-	"research":磁铜四向通道
+	"research":{
+		"parent":磁涌合金
+		"objectives":[磁铜四向通道]
+	}
 }

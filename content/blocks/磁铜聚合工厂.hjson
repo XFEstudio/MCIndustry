@@ -9,7 +9,8 @@ hasItems: true
 outputItem: 磁铜/1
 craftTime:30
 research:磁铜工业
-researchCost:[copper/300]
+researchCost:[copper/300
+graphite/300]
 consumes: {
 power:1.5
 items: {
@@ -19,7 +20,7 @@ copper/5
   }
  }
 requirements:[copper/200
-titanium/60
+graphite/60
 ]
 craftEffect: smeltsmoke
 category: crafting
