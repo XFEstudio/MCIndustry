@@ -41,8 +41,7 @@ function pullFrom(magneticConveyor, build, source, room){
 }
 
 function fillLoadingDock(magneticConveyor, build){
-    // stateLoad == 1；该常量在 Java 中是 protected，脚本侧不能直接读取。
-    if(build.state !== 1 || build.items.total() >= magneticConveyor.itemCapacity){
+    if(build.items.total() >= magneticConveyor.itemCapacity){
         return;
     }
 
@@ -50,6 +49,112 @@ function fillLoadingDock(magneticConveyor, build){
     for(let i = 0; i < build.proximity.size && room > 0; i++){
         room -= pullFrom(magneticConveyor, build, build.proximity.get(i), room);
     }
+}
+
+function sideNeighbors(build){
+    return [
+        build.nearby(Mathf.mod(build.rotation + 1, 4)),
+        build.nearby(Mathf.mod(build.rotation + 3, 4))
+    ];
+}
+
+function canOutputToSide(magneticConveyor, build, target, item){
+    if(target == null || target.team != build.team || item == null){
+        return false;
+    }
+
+    // 磁铜传送带分支必须背对当前传送带，即真正从主线向侧面延伸。
+    if(target.block == magneticConveyor){
+        return target.back() == build && target.link == -1 && target.items.empty();
+    }
+
+    // 普通有方向的物流方块也必须背对主线，防止把物品倒灌进输入支线。
+    if(target.block.rotate && target.back() != build){
+        return false;
+    }
+
+    return target.acceptStack(item, build.items.get(item), build) > 0;
+}
+
+function chooseSideOutput(magneticConveyor, build){
+    if(build.link == -1 || !build.enabled || build.state == 2 || build.items.empty()){
+        return null;
+    }
+
+    const eff = build.enabled ? build.efficiency + magneticConveyor.baseEfficiency : 1;
+    const nextCooldown = Math.max(
+        0,
+        build.cooldown - magneticConveyor.speed * eff * build.delta()
+    );
+    if(nextCooldown > 0){
+        return null;
+    }
+
+    const item = build.lastItem != null && build.items.has(build.lastItem)
+        ? build.lastItem
+        : build.items.first();
+
+    // 装载端仍然等到一整组再发送；中间节点可以转发侧面刚送来的整组。
+    if(build.state == 1 && build.items.total() < magneticConveyor.itemCapacity){
+        return null;
+    }
+
+    const sides = sideNeighbors(build).filter(target =>
+        canOutputToSide(magneticConveyor, build, target, item)
+    );
+    if(sides.length == 0){
+        return null;
+    }
+
+    // 正前方算一路，与有效的左右支路轮流分配整组物品。
+    const route = build.cdump % (sides.length + 1);
+    build.cdump++;
+    return route == 0 ? null : sides[route - 1];
+}
+
+function moveToSide(magneticConveyor, build, target){
+    const item = build.lastItem != null && build.items.has(build.lastItem)
+        ? build.lastItem
+        : build.items.first();
+    if(item == null){
+        return false;
+    }
+
+    if(target.block == magneticConveyor){
+        if(target.link != -1 || !target.items.empty()){
+            return false;
+        }
+
+        // 与原版 StackConveyor 的正向交接一致：整组和动画来源一起交给支路。
+        target.items.add(build.items);
+        target.lastItem = item;
+        target.link = build.tile.pos();
+        target.cooldown = 1;
+
+        build.items.clear();
+        build.lastItem = null;
+        build.link = -1;
+        build.cooldown = magneticConveyor.recharge;
+        return true;
+    }
+
+    const accepted = Math.min(
+        build.items.get(item),
+        target.acceptStack(item, build.items.get(item), build)
+    );
+    if(accepted <= 0){
+        return false;
+    }
+
+    build.items.remove(item, accepted);
+    target.handleStack(item, accepted, build);
+    build.cooldown = magneticConveyor.recharge;
+
+    if(!build.items.has(item)){
+        build.lastItem = null;
+        build.link = -1;
+    }
+    return true;
 }
 
 Events.on(ContentInitEvent, cons(() => {
@@ -67,9 +172,66 @@ Events.on(ContentInitEvent, cons(() => {
         StackConveyor.StackConveyorBuild,
         magneticConveyor,
         {
+            // 原版只允许 stateLoad 装载端收货。这里改为普通传送带式规则：
+            // 后方和左右两侧均可输入，只有正前方禁止反向输入。
+            acceptItem(source, item){
+                if(this == source){
+                    return this.items.total() < magneticConveyor.itemCapacity &&
+                        (!this.items.any() || this.items.has(item));
+                }
+                if(source == this.front() || this.cooldown > magneticConveyor.recharge - 1){
+                    return false;
+                }
+                return this.items.total() < magneticConveyor.itemCapacity &&
+                    (!this.items.any() || this.items.has(item));
+            },
+
+            acceptStack(item, amount, source){
+                if(source == this.front() || (this.items.any() && !this.items.has(item))){
+                    return 0;
+                }
+                return Math.min(
+                    amount,
+                    magneticConveyor.itemCapacity - this.items.total()
+                );
+            },
+
             updateTile(){
+                const side = chooseSideOutput(magneticConveyor, this);
+                if(side != null){
+                    // 暂时阻止父类在同一 tick 把这一组送往正前方；父类仍负责
+                    // 更新冷却、供电状态和其他内部字段。
+                    this.cooldown = magneticConveyor.recharge;
+                    this.super$updateTile();
+                    this.cooldown = 0;
+
+                    if(moveToSide(magneticConveyor, this, side)){
+                        fillLoadingDock(magneticConveyor, this);
+                        return;
+                    }
+                }
+
                 this.super$updateTile();
                 fillLoadingDock(magneticConveyor, this);
+            },
+
+            onProximityUpdate(){
+                this.super$onProximityUpdate();
+
+                // 补上原版 StackConveyor 没有绘制的左右磁铜支路拼接。
+                const oldBlend = this.blendprox;
+                for(let i = 1; i <= 3; i += 2){
+                    const dir = Mathf.mod(this.rotation - i, 4);
+                    const near = this.nearby(dir);
+                    if(near != null && near.team == this.team &&
+                        near.block == magneticConveyor &&
+                        (near.front() == this || near.back() == this)){
+                        this.blendprox |= 1 << i;
+                    }
+                }
+                if(this.blendprox != oldBlend){
+                    this.recache();
+                }
             }
         }
     ));

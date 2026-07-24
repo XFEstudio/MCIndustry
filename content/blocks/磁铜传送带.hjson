@@ -12,6 +12,9 @@
     outputRouter: true
     canOverdrive: false
     hasPower: true
+    // 像电池/电力导体一样与相邻的有电建筑自动合并电网。
+    outputsPower: true
+    conductivePower: true
     consumes: {
         power: 0.2
     }
