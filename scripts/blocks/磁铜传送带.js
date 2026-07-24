@@ -58,6 +58,32 @@ function sideNeighbors(build){
     ];
 }
 
+function isRenderConnection(magneticConveyor, build, near){
+    if(near == null || near.team != build.team){
+        return false;
+    }
+
+    // 磁铜传送带只有在其中一端确实朝向另一端时才算接通。
+    // 这样相邻但平行放置的两条线路仍会各自保留边框。
+    if(near.block == magneticConveyor){
+        return near.front() == build || near.back() == build ||
+            build.front() == near || build.back() == near;
+    }
+
+    // 正前方和正后方由本传送带自身的方向决定。
+    if(build.front() == near || build.back() == near){
+        return near.block.acceptsItems || near.block.outputsItems();
+    }
+
+    // 两侧只为真正朝向本传送带的输出端，或能够从侧面接货的建筑打开边框。
+    // 有方向的物流方块必须以正确的一端相接，避免仅仅贴在旁边也出现缺口。
+    if(near.block.rotate){
+        return near.front() == build || near.back() == build;
+    }
+
+    return near.block.acceptsItems || near.block.outputsItems();
+}
+
 function canOutputToSide(magneticConveyor, build, target, item){
     if(target == null || target.team != build.team || item == null){
         return false;
@@ -168,6 +194,10 @@ Events.on(ContentInitEvent, cons(() => {
         return;
     }
 
+    const magneticSideRegion = Core.atlas.find(
+        magneticConveyor.name + "-side"
+    );
+
     magneticConveyor.buildType = prov(() => extend(
         StackConveyor.StackConveyorBuild,
         magneticConveyor,
@@ -215,22 +245,44 @@ Events.on(ContentInitEvent, cons(() => {
                 fillLoadingDock(magneticConveyor, this);
             },
 
-            onProximityUpdate(){
-                this.super$onProximityUpdate();
+            drawCached(){
+                // 不使用父类的 blendprox 缓存；它只认识原版 StackConveyor 的
+                // 单向连接规则，且在旋转/拆除支路后可能留下不符合本方块规则的边框。
+                Draw.rect(
+                    magneticConveyor.regions[this.state],
+                    this.x,
+                    this.y,
+                    this.rotdeg()
+                );
 
-                // 补上原版 StackConveyor 没有绘制的左右磁铜支路拼接。
-                const oldBlend = this.blendprox;
+                // 接口图是以当前格中心为锚点的 32x32 单侧透明图层。
+                // 它只覆盖“中心到相邻格边界”这一半，不再发生半格贴图中心错位。
                 for(let i = 1; i <= 3; i += 2){
                     const dir = Mathf.mod(this.rotation - i, 4);
                     const near = this.nearby(dir);
-                    if(near != null && near.team == this.team &&
-                        near.block == magneticConveyor &&
-                        (near.front() == this || near.back() == this)){
-                        this.blendprox |= 1 << i;
+                    if(isRenderConnection(magneticConveyor, this, near)){
+                        Draw.rect(
+                            magneticSideRegion,
+                            this.x,
+                            this.y,
+                            dir * 90
+                        );
                     }
                 }
-                if(this.blendprox != oldBlend){
-                    this.recache();
+
+                // 四个方向逐一判断：只有实际连接的一侧才不绘制 edge。
+                // 因而空地一侧始终封边，端点、直线和 T/Cross 接口规则一致。
+                for(let i = 0; i < 4; i++){
+                    const dir = Mathf.mod(this.rotation - i, 4);
+                    const near = this.nearby(dir);
+                    if(!isRenderConnection(magneticConveyor, this, near)){
+                        Draw.rect(
+                            magneticConveyor.edgeRegion,
+                            this.x,
+                            this.y,
+                            (this.rotation - i) * 90
+                        );
+                    }
                 }
             }
         }
