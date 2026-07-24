@@ -197,6 +197,16 @@ Events.on(ContentInitEvent, cons(() => {
     const magneticSideRegion = Core.atlas.find(
         magneticConveyor.name + "-side"
     );
+    const magneticFrontRegions = [];
+    const magneticBackRegions = [];
+    for(let i = 0; i < 3; i++){
+        magneticFrontRegions.push(Core.atlas.find(
+            magneticConveyor.name + "-front-" + i
+        ));
+        magneticBackRegions.push(Core.atlas.find(
+            magneticConveyor.name + "-back-" + i
+        ));
+    }
 
     magneticConveyor.buildType = prov(() => extend(
         StackConveyor.StackConveyorBuild,
@@ -255,33 +265,35 @@ Events.on(ContentInitEvent, cons(() => {
                     this.rotdeg()
                 );
 
-                // 接口图是以当前格中心为锚点的 32x32 单侧透明图层。
-                // 它只覆盖“中心到相邻格边界”这一半，不再发生半格贴图中心错位。
-                for(let i = 1; i <= 3; i += 2){
-                    const dir = Mathf.mod(this.rotation - i, 4);
-                    const near = this.nearby(dir);
-                    if(isRenderConnection(magneticConveyor, this, near)){
-                        Draw.rect(
-                            magneticSideRegion,
-                            this.x,
-                            this.y,
-                            dir * 90
-                        );
-                    }
-                }
-
-                // 四个方向逐一判断：只有实际连接的一侧才不绘制 edge。
-                // 因而空地一侧始终封边，端点、直线和 T/Cross 接口规则一致。
+                // 底图的四个方向默认全部封边，只在存在实际连接时打开对应方向。
+                // 前后端恢复当前状态底图的同向半幅，避免旋转侧向接口后破坏箭头；
+                // 左右两侧则绘制转向接口。支线的尾部属于 i=2，必须单独处理。
                 for(let i = 0; i < 4; i++){
                     const dir = Mathf.mod(this.rotation - i, 4);
                     const near = this.nearby(dir);
-                    if(!isRenderConnection(magneticConveyor, this, near)){
-                        Draw.rect(
-                            magneticConveyor.edgeRegion,
-                            this.x,
-                            this.y,
-                            (this.rotation - i) * 90
-                        );
+                    if(isRenderConnection(magneticConveyor, this, near)){
+                        if(i == 0){
+                            Draw.rect(
+                                magneticFrontRegions[this.state],
+                                this.x,
+                                this.y,
+                                this.rotdeg()
+                            );
+                        }else if(i == 2){
+                            Draw.rect(
+                                magneticBackRegions[this.state],
+                                this.x,
+                                this.y,
+                                this.rotdeg()
+                            );
+                        }else{
+                            Draw.rect(
+                                magneticSideRegion,
+                                this.x,
+                                this.y,
+                                dir * 90
+                            );
+                        }
                     }
                 }
             }
