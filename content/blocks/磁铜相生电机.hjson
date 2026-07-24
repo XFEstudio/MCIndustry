@@ -19,6 +19,9 @@
 磁铜/50
 ]
 	 category:power
-	 research:铜相生电机
+	 research:{
+	   parent:磁铜
+	   objectives:[铜相生电机]
+	 }
 	 researchCost:[磁铜/500]
 }

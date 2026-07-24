@@ -10,7 +10,7 @@ reload:40
 speedBoost:2
 size:2
 hasItems: true
-research:磁铜工业
+research:磁铜
 consumes: {
 power:1
 items:{

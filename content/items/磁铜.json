@@ -2,7 +2,7 @@
 "name": "磁铜",
 "description": "高能带电物质，用作磁轨工业材料",
 "type": "material",
-"alwaysUnlocked":true,
+"research":"磁铜工业",
 "color": "#6a5acd",
 "explosiveness": 0,
 "hardness": 5,

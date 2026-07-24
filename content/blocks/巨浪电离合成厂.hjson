@@ -8,7 +8,10 @@ size:3
 hasItems: true
 outputItem: surge-alloy/2
 craftTime:20
-research:磁铜聚合工厂
+research:{
+parent:磁铜
+objectives:[磁铜聚合工厂]
+}
 researchCost:[copper/3000
 磁铜/1000]
 consumes: {

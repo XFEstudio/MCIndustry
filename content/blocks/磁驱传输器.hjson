@@ -14,6 +14,6 @@
     "hasPower": true,
     "consumes": {
     power:0.2},
-    "research": "磁铜工业",
+    "research": "磁铜",
     "description": "利用磁场传输的信息在另一边构成物质"
 }

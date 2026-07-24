@@ -2,7 +2,7 @@
     "type": "legs",
 	"name": "磁爆",
 	"description": "类自爆单位，可在自身周围爆发高伤害的电磁脉冲",
-	"research":"磁铜工业",
+	"research":"磁铜UAV工厂",
 	"flying":false,
 "speed":3
 "hitSize":5

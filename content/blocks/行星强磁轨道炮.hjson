@@ -29,7 +29,10 @@ minRange:100
     firingMoveFract:1
     smokeEffect: "lightningShoot"
     heatColor:DC143C
-    research:强磁轨道炮
+    research:{
+    parent:磁涌合金
+    objectives:[强磁轨道炮]
+    }
     researchCost:[copper/30000
     磁铜/10000
     磁涌合金/5000]

@@ -8,7 +8,7 @@ size:2
 hasItems:true
 outputItem:silicon/1
 craftTime:20
-research:煤生成器
+research:磁铜
 consumes: {
 power:3
  }
