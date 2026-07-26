@@ -51,11 +51,24 @@ function fillLoadingDock(magneticConveyor, build){
     }
 }
 
+function direction4(value){
+    const result = value % 4;
+    return result < 0 ? result + 4 : result;
+}
+
 function sideNeighbors(build){
     return [
-        build.nearby(Mathf.mod(build.rotation + 1, 4)),
-        build.nearby(Mathf.mod(build.rotation + 3, 4))
+        build.nearby(direction4(build.rotation + 1)),
+        build.nearby(direction4(build.rotation + 3))
     ];
+}
+
+function nearbyInDirection(build, dir){
+    const offset = Geometry.d4[dir];
+    return Vars.world.build(
+        build.tile.x + offset.x,
+        build.tile.y + offset.y
+    );
 }
 
 function isRenderConnection(magneticConveyor, build, near){
@@ -63,8 +76,8 @@ function isRenderConnection(magneticConveyor, build, near){
         return false;
     }
 
-    // 磁铜传送带只有在其中一端确实朝向另一端时才算接通。
-    // 这样相邻但平行放置的两条线路仍会各自保留边框。
+    // 只有其中一端确实朝向另一端时才绘制接口。这样 T 形分支会打开，
+    // 但只是平行贴放、并未形成物品通路的两条传送带仍会各自保留封边。
     if(near.block == magneticConveyor){
         return near.front() == build || near.back() == build ||
             build.front() == near || build.back() == near;
@@ -197,16 +210,12 @@ Events.on(ContentInitEvent, cons(() => {
     const magneticSideRegion = Core.atlas.find(
         magneticConveyor.name + "-side"
     );
-    const magneticFrontRegions = [];
-    const magneticBackRegions = [];
-    for(let i = 0; i < 3; i++){
-        magneticFrontRegions.push(Core.atlas.find(
-            magneticConveyor.name + "-front-" + i
-        ));
-        magneticBackRegions.push(Core.atlas.find(
-            magneticConveyor.name + "-back-" + i
-        ));
-    }
+    const magneticBorderRegion = Core.atlas.find(
+        magneticConveyor.name + "-border"
+    );
+    // border 贴图宽 6 像素，即 1.5 世界单位；将中心平移 3.25 单位后，
+    // 它的外沿恰好落在 8×8 方块的边界上。
+    const magneticBorderOffset = Vars.tilesize / 2 - 0.75;
 
     magneticConveyor.buildType = prov(() => extend(
         StackConveyor.StackConveyorBuild,
@@ -256,8 +265,9 @@ Events.on(ContentInitEvent, cons(() => {
             },
 
             drawCached(){
-                // 不使用父类的 blendprox 缓存；它只认识原版 StackConveyor 的
-                // 单向连接规则，且在旋转/拆除支路后可能留下不符合本方块规则的边框。
+                // 必须和原版 StackConveyor 一样在缓存层中先画底图、再画 edgeRegion。
+                // edgeRegion 的紫色内沿位于底图范围内；若放到 draw() 的动态层绘制，
+                // 会被已缓存的底图遮住，只剩铜色角块，看起来就像没有封边。
                 Draw.rect(
                     magneticConveyor.regions[this.state],
                     this.x,
@@ -265,37 +275,60 @@ Events.on(ContentInitEvent, cons(() => {
                     this.rotdeg()
                 );
 
-                // 底图的四个方向默认全部封边，只在存在实际连接时打开对应方向。
-                // 前后端恢复当前状态底图的同向半幅，避免旋转侧向接口后破坏箭头；
-                // 左右两侧则绘制转向接口。支线的尾部属于 i=2，必须单独处理。
-                for(let i = 0; i < 4; i++){
-                    const dir = Mathf.mod(this.rotation - i, 4);
-                    const near = this.nearby(dir);
-                    if(isRenderConnection(magneticConveyor, this, near)){
-                        if(i == 0){
-                            Draw.rect(
-                                magneticFrontRegions[this.state],
-                                this.x,
-                                this.y,
-                                this.rotdeg()
-                            );
-                        }else if(i == 2){
-                            Draw.rect(
-                                magneticBackRegions[this.state],
-                                this.x,
-                                this.y,
-                                this.rotdeg()
-                            );
-                        }else{
-                            Draw.rect(
-                                magneticSideRegion,
-                                this.x,
-                                this.y,
-                                dir * 90
-                            );
-                        }
+                // v159 的 Rhino 会错误复用 for 块内用 const 声明的值，导致四次循环
+                // 都检查同一个方向。这里使用 var 显式重赋值，确保依次检查四条边。
+                for(var i = 0; i < 4; i++){
+                    var dir = direction4(this.rotation - i);
+                    var near = nearbyInDirection(this, dir);
+                    var connected = isRenderConnection(
+                        magneticConveyor,
+                        this,
+                        near
+                    );
+
+                    if(!connected){
+                        var offset = Geometry.d4[dir];
+                        Draw.rect(
+                            magneticBorderRegion,
+                            this.x + offset.x * magneticBorderOffset,
+                            this.y + offset.y * magneticBorderOffset,
+                            dir * 90
+                        );
+                    }else if(i == 1 || i == 3){
+                        // 侧向连接使用专用接口贴图填平接缝；
+                        // 前后连接由相邻底图自然衔接。
+                        Draw.rect(
+                            magneticSideRegion,
+                            this.x,
+                            this.y,
+                            dir * 90
+                        );
                     }
                 }
+            },
+
+            onProximityUpdate(){
+                this.super$onProximityUpdate();
+                if(Vars.headless){
+                    return;
+                }
+
+                // 原版 blends() 不认识本模组允许的双向侧接规则，因此在父类完成
+                // 状态计算后重建 blendprox，并再次缓存最终连接贴图。
+                var mask = 0;
+                for(var i = 0; i < 4; i++){
+                    var dir = direction4(this.rotation - i);
+                    if(isRenderConnection(
+                        magneticConveyor,
+                        this,
+                        nearbyInDirection(this, dir)
+                    )){
+                        mask |= 1 << i;
+                    }
+                }
+
+                this.blendprox = mask;
+                this.recache();
             }
         }
     ));
