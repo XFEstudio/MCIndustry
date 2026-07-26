@@ -1,0 +1,24 @@
+type: StorageBlock
+name: 磁铜压缩仓库
+description: 利用磁铜约束场远程连接本队核心，在任意位置共享核心物品并提高每种物品的存储上限。
+
+size: 2
+health: 1300
+itemCapacity: 40000
+separateItemCapacity: true
+coreMerge: false
+update: true
+
+category: effect
+requirements: [
+    copper/800
+    graphite/500
+    磁铜/400
+]
+
+research: 磁铜
+researchCost: [
+    copper/3000
+    graphite/2000
+    磁铜/1200
+]

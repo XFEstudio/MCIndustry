@@ -1,0 +1,24 @@
+type: StorageBlock
+name: 磁涌扩展仓库
+description: 以磁涌合金稳定跨区域核心连接，在任意位置共享核心物品并大幅提高每种物品的存储上限。
+
+size: 4
+health: 4200
+itemCapacity: 120000
+separateItemCapacity: true
+coreMerge: false
+update: true
+
+category: effect
+requirements: [
+    磁铜/2200
+    磁涌合金/1200
+    titanium/1600
+]
+
+research: 磁涌合金
+researchCost: [
+    磁铜/7000
+    磁涌合金/4000
+    titanium/5000
+]
