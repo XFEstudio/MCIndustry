@@ -1,12 +1,13 @@
 type: StorageBlock
 name: 磁涌扩展仓库
-description: 以磁涌合金稳定超高密度储存空间的后期仓库，每种物资均拥有独立储存空间。
+description: 以磁涌合金稳定跨区域核心连接，在任意位置共享核心物品并大幅提高每种物品的存储上限。
 
 size: 4
 health: 4200
 itemCapacity: 120000
 separateItemCapacity: true
 coreMerge: false
+update: true
 
 category: effect
 requirements: [

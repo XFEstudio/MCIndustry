@@ -1,12 +1,13 @@
 type: StorageBlock
 name: 磁铜压缩仓库
-description: 利用磁铜约束场将不同物资分别压缩存放的大型仓库，每种物资均拥有独立储存空间。
+description: 利用磁铜约束场远程连接本队核心，在任意位置共享核心物品并提高每种物品的存储上限。
 
 size: 2
 health: 1300
 itemCapacity: 40000
 separateItemCapacity: true
 coreMerge: false
+update: true
 
 category: effect
 requirements: [
