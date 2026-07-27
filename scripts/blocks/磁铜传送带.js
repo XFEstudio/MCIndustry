@@ -213,9 +213,12 @@ Events.on(ContentInitEvent, cons(() => {
     const magneticBorderRegion = Core.atlas.find(
         magneticConveyor.name + "-border"
     );
-    // border 贴图宽 6 像素，即 1.5 世界单位；将中心平移 3.25 单位后，
+    const magneticCornerRegion = Core.atlas.find(
+        magneticConveyor.name + "-corner"
+    );
+    // border 贴图宽 5 像素，即 1.25 世界单位；将中心平移 3.375 单位后，
     // 它的外沿恰好落在 8×8 方块的边界上。
-    const magneticBorderOffset = Vars.tilesize / 2 - 0.75;
+    const magneticBorderOffset = Vars.tilesize / 2 - 0.625;
 
     magneticConveyor.buildType = prov(() => extend(
         StackConveyor.StackConveyorBuild,
@@ -265,26 +268,48 @@ Events.on(ContentInitEvent, cons(() => {
             },
 
             drawCached(){
-                // 必须和原版 StackConveyor 一样在缓存层中先画底图、再画 edgeRegion。
-                // edgeRegion 的紫色内沿位于底图范围内；若放到 draw() 的动态层绘制，
-                // 会被已缓存的底图遮住，只剩铜色角块，看起来就像没有封边。
-                Draw.rect(
-                    magneticConveyor.regions[this.state],
-                    this.x,
-                    this.y,
-                    this.rotdeg()
-                );
-
-                // v159 的 Rhino 会错误复用 for 块内用 const 声明的值，导致四次循环
-                // 都检查同一个方向。这里使用 var 显式重赋值，确保依次检查四条边。
-                for(var i = 0; i < 4; i++){
-                    var dir = direction4(this.rotation - i);
+                // 先按世界方向收集四条边的连接状态。使用 var 是为了避开 v159
+                // Rhino 在 Java 扩展方法中复用循环块 const 值的问题。
+                var connections = [false, false, false, false];
+                var connectionCount = 0;
+                for(var dir = 0; dir < 4; dir++){
                     var near = nearbyInDirection(this, dir);
-                    var connected = isRenderConnection(
+                    connections[dir] = isRenderConnection(
                         magneticConveyor,
                         this,
                         near
                     );
+                    if(connections[dir]){
+                        connectionCount++;
+                    }
+                }
+
+                // corner 贴图的标准方向连接东(0)+南(3)。恰好两条相邻边连接时
+                // 整格替换为专用弯道中心，避免直线箭头和半格 side 贴图重叠。
+                var cornerRotation = -1;
+                if(connectionCount == 2){
+                    if(connections[0] && connections[3]){
+                        cornerRotation = 0;
+                    }else if(connections[0] && connections[1]){
+                        cornerRotation = 90;
+                    }else if(connections[2] && connections[1]){
+                        cornerRotation = 180;
+                    }else if(connections[2] && connections[3]){
+                        cornerRotation = 270;
+                    }
+                }
+
+                Draw.rect(
+                    cornerRotation >= 0
+                        ? magneticCornerRegion
+                        : magneticConveyor.regions[this.state],
+                    this.x,
+                    this.y,
+                    cornerRotation >= 0 ? cornerRotation : this.rotdeg()
+                );
+
+                for(var dir = 0; dir < 4; dir++){
+                    var connected = connections[dir];
 
                     if(!connected){
                         var offset = Geometry.d4[dir];
@@ -294,7 +319,11 @@ Events.on(ContentInitEvent, cons(() => {
                             this.y + offset.y * magneticBorderOffset,
                             dir * 90
                         );
-                    }else if(i == 1 || i == 3){
+                    }else if(
+                        cornerRotation < 0 &&
+                        dir != this.rotation &&
+                        dir != direction4(this.rotation + 2)
+                    ){
                         // 侧向连接使用专用接口贴图填平接缝；
                         // 前后连接由相邻底图自然衔接。
                         Draw.rect(
